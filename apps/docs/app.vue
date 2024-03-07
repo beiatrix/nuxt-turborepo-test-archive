@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Page } from "ui";
-import { name } from "./package.json";
+
+const config = useRuntimeConfig()
+const { appName } = config.public
 
 useHead({
   title: "Create Turborepo (vue-nuxt:docs)",
@@ -9,5 +11,5 @@ useHead({
 </script>
 
 <template>
-  <Page :app-name="name" />
+  <Page :app-name="appName" />
 </template>

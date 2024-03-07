@@ -4,6 +4,8 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
+      "dotEnv": [".env"],
+      "env": ["APP_NAME"],
       "outputs": [".nuxt/**", ".output/**", "dist/**"]
     },
     "lint": {},
