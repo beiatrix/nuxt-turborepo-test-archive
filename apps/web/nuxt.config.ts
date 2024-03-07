@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
     public: {
-      appName: process.env.APP_NAME || 'docs'
+      appName: process.env.APP_NAME || 'web'
     }
   }
 });
