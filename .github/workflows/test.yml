@@ -1,0 +1,61 @@
+name: test
+
+on:
+  pull_request:
+    branches:
+      - development
+      - release
+      - staging
+      - hotfix
+      - main
+
+jobs:
+  setup:
+    runs-on: ${{ matrix.os }}
+    # To use Remote Caching, uncomment the next lines and follow the steps below.
+    # env:
+    #  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+    #  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [20]
+
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v4
+
+      - name: Setup node env 🏗
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'yarn'
+
+      - name: Install dependencies 👨🏻‍💻
+        run: yarn
+
+      # - name: Build packages 🛠️
+      #   run: yarn build:packages
+
+  lint:
+    runs-on: ${{ matrix.os }}
+    needs: setup
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [18]
+
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v3
+
+      - name: Setup node env 🏗
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'yarn'
+
+      - name: Run linter 👀
+        run: yarn lint
